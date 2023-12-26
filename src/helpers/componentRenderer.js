@@ -1,24 +1,27 @@
 import TextBlock from "@/components/textBlock"
 import Recipes from "@/components/recipes"
 
-export function renderComponents(bodySections) {
-  console.log('component body', bodySections)
-  if (bodySections && bodySections.length > 0) {
-    return bodySections.map((data, index) => {
-      return <ComponentResolver key={index} component={data} />;
-    });
+export async function renderComponents(bodySections) {
+  if (!bodySections || bodySections.length === 0) {
+    return null;
+  } else {
+    return <ComponentRenderer component={bodySections} />;
   }
-  return [];
 }
 
-export default function ComponentRenderer({ component }) {
+function ComponentRenderer({ component }) {
+  if (!component || !component.sys || !component.sys.contentType || !component.sys.contentType.sys || !component.sys.contentType.sys.id) {
+    console.error('Invalid component data:', component);
+    return null;
+  }
+
   switch (component.sys.contentType.sys.id) {
     case "text_block":
-      console.log('text block returned')
-      return <TextBlock data={component} />;
+      return <TextBlock key={component.sys.id} title={component.fields.title} text={component.fields.text} />;
     case "recipe_group":
-      return <Recipes data={component} />
+      return <Recipes key={component.sys.id} data={component} />;
     default:
-    return null;
+      console.warn('Unrecognized component type:', component.sys.contentType.sys.id);
+      return null;
   }
 }
