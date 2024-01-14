@@ -42,10 +42,8 @@ export default async function Page({ params }) {
     <main className="container mx-auto mt-8">
       <Banner />
       <div className="container bg mx-auto px-4">
-        {bodySections.map((component, index) => (
-          <div key={index}>
-            {renderComponents(component)}
-          </div>
+        {bodySections.map((component) => (
+          renderComponents(component)
         ))}
       </div>
     </main>
