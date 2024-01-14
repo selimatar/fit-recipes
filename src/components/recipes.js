@@ -2,6 +2,11 @@ import React from 'react'
 import Recipe from './recipe'
 
 const Recipes = ({ recipes }) => {
+  // Check if the page and its body field exist
+  if (!recipes) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <h1 className="text-3xl font-bold mb-6">Recipes</h1>

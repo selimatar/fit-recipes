@@ -8,11 +8,13 @@ async function getNavigations() {
             'content_type': 'navigation', 
             'fields.internal_title': 'Main Navigation'
         });
+
         const navigations = await Promise.all(
             res.items[0].fields.sub_navigations.map(async subNavigation => {
                 return await getSubNavigation(subNavigation.sys.id)
             }
         ))
+
         return navigations;
     } catch (error) {
         console.log('Client error main navigation', error);
@@ -35,15 +37,19 @@ export default async function Navigation() {
 
     return (
         <nav className="space-x-4">
-            {navigations && navigations.map(navigation => (
-                <Link
-                    key={navigation.sys.id}
-                    href={"/" + navigation.fields.slug}
-                    className="hover:text-gray-300"
-                >
-                    {navigation.fields.internal_title}
-                </Link>
-            ))}
+            {navigations && navigations.map(navigation => {
+                if(navigation.fields.slug) {
+                    return (
+                        <Link
+                            key={navigation.sys.id}
+                            href={"/" + navigation.fields.slug}
+                            className="hover:text-gray-300"
+                        >
+                            {navigation.fields.internal_title}
+                        </Link>
+                    )
+                }
+            })}
         </nav>
     );
 }

@@ -1,6 +1,7 @@
 import client from "../contentfulClient";
 import Banner from "@/components/banner";
 import { renderComponents } from "@/helpers/componentRenderer";
+import ContactForm from "@/components/contactForm";
 
 async function getPageBySlug(slug) {
   try {

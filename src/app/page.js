@@ -1,4 +1,6 @@
-import client from "./contentfulClient"
+import client from "./contentfulClient";
+import Banner from "@/components/banner";
+import { renderComponents } from "@/helpers/componentRenderer";
 
 async function getHomePage() {
   try {
@@ -22,9 +24,14 @@ export default async function Home() {
   return (
     <main className="container mx-auto mt-8">
       <h2 className="text-2xl text-center font-bold mb-4">{homePage.fields.internal_title} Page</h2>
-        {homePage.fields.body && homePage.fields.body.map(component => {
-          return <p>{component.sys.id}</p>
-        })}
+      <Banner />
+      <div className="container bg mx-auto px-4">
+        {homePage.fields.body && homePage.fields.body.map((component, index) => (
+          <div key={index}>
+            {renderComponents(component)}
+          </div>
+        ))}
+      </div>
     </main>
   )
 }
