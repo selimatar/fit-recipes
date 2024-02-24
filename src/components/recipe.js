@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import client from '@/app/contentfulClient';
+import client from '../app/contentfulClient';
 
 async function getRecipeImage(thumbnail) {
   if(!thumbnail) {

@@ -1,6 +1,6 @@
-import TextBlock from "@/components/textBlock"
-import Recipes from "@/components/recipes"
-import Generic from "@/components/generic/generic";
+import TextBlock from "../components/textBlock"
+import Recipes from "../components/recipes"
+import Generic from "../components/generic/generic";
 
 export async function renderComponents(bodySections) {
   if (!bodySections || bodySections.length === 0) {
