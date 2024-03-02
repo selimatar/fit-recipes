@@ -4,10 +4,9 @@ import ContactForm from "../contactForm"
 // This component will be used for generic pages such as Contact Page etc.
 const Generic = ({ data }) => {
   if (data) {
-    switch (data.type) {
+    switch (data.fields.type) {
       case "Contact Form":
         return <ContactForm data={data} />
-
       default:
         return null
     }
@@ -15,6 +14,5 @@ const Generic = ({ data }) => {
     return null
   }
 }
-
 
 export default Generic;

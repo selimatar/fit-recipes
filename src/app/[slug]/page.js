@@ -1,7 +1,6 @@
 import client from "../contentfulClient";
-import Banner from "@/components/banner";
-import { renderComponents } from "@/helpers/componentRenderer";
-import ContactForm from "@/components/contactForm";
+import Banner from "../../components/banner"
+import { renderComponents } from "../../helpers/componentRenderer";
 
 async function getPageBySlug(slug) {
   try {
@@ -37,14 +36,18 @@ export default async function Page({ params }) {
       return sectionData; // Return the section data fetched
     })
   );
+
+  const renderComponentPromises = bodySections.map(async (component, index) => {
+    const renderedComponent = await renderComponents(component, index);
+    return renderedComponent;
+  });
+
+  const renderedComponents = await Promise.all(renderComponentPromises);
   
   return (
     <main className="container mx-auto mt-8">
-      <Banner />
       <div className="container bg mx-auto px-4">
-        {bodySections.map((component) => (
-          renderComponents(component)
-        ))}
+        {renderedComponents}
       </div>
     </main>
   );

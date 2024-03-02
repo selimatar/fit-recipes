@@ -2,11 +2,11 @@ import TextBlock from "../components/textBlock"
 import Recipes from "../components/recipes"
 import Generic from "../components/generic/generic";
 
-export async function renderComponents(bodySections) {
+export async function renderComponents(bodySections, key) {
   if (!bodySections || bodySections.length === 0) {
     return null;
   } else {
-    return <ComponentRenderer component={bodySections} />;
+    return <ComponentRenderer key={key} component={bodySections} />;
   }
 }
 
@@ -22,7 +22,7 @@ function ComponentRenderer({ component }) {
     case "recipe_group":
       return <Recipes key={component.sys.id} recipes={component.fields.recipes} />;
     case "generic_component":
-      return <Generic />
+      return <Generic data={component}/>
     default:
       console.warn('Unrecognized component type:', component.sys.contentType.sys.id);
       return null;

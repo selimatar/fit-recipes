@@ -21,17 +21,26 @@ async function getHomePage() {
 
 export default async function Home() {
   const homePage = await getHomePage();
+  
+  // Check if the home page and its body field exist
+  if (!homePage || !homePage.fields.body) {
+    return <div>Loading...</div>
+  }
+
+  const renderComponentPromises = homePage.fields.body.map(async (component, index) => {
+    const renderedComponent = await renderComponents(component, index);
+    return renderedComponent;
+  });
+
+  const renderedComponents = await Promise.all(renderComponentPromises);
+
   return (
     <main className="container mx-auto mt-8">
       <h2 className="text-2xl text-center font-bold mb-4">{homePage.fields.internal_title} Page</h2>
       <Banner />
       <div className="container bg mx-auto px-4">
-        {homePage.fields.body && homePage.fields.body.map((component, index) => (
-          <div key={index}>
-            {renderComponents(component)}
-          </div>
-        ))}
+        {renderedComponents}
       </div>
     </main>
-  )
+  );
 }

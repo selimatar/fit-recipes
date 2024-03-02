@@ -1,51 +1,81 @@
-const ContactForm = () => {
-
+const ContactFrom = () => {
   return (
-    <form className="max-w-md mx-auto">
+    <form className="max-w-md mx-auto my-8">
       <div className="mb-4">
-        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-600">
-          Name
+        <label htmlFor="first_name" className="block text-gray-700 text-sm font-bold mb-2">
+          First Name
         </label>
         <input
           type="text"
-          id="name"
-          name="name"
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          required
+          id="first_name"
+          name="irst_name"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter your first name"
         />
       </div>
+
       <div className="mb-4">
-        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-600">
+        <label htmlFor="last_name" className="block text-gray-700 text-sm font-bold mb-2">
+          Last Name
+        </label>
+        <input
+          type="text"
+          id="last_name"
+          name="last_name"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter your last name"
+        />
+      </div>
+
+      <div className="mb-6">
+        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
           Email
         </label>
         <input
           type="email"
           id="email"
           name="email"
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          required
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter your email"
         />
       </div>
-      <div className="mb-6">
-        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-600">
-          Message
+
+      <div className="mb-4">
+        <label htmlFor="subject" className="block text-gray-700 text-sm font-bold mb-2">
+          Subject
+        </label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter the subject"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
+          Description
         </label>
         <textarea
-          id="message"
-          name="message"
-          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-          rows="4"
-          required
-        ></textarea>
+          type="text"
+          id="subject"
+          name="subject"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter the description"
+        />
       </div>
-      <button
-        type="submit"
-        className="w-full px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none hover:bg-blue-600"
-      >
-        Submit
-      </button>
+
+      <div className="flex items-center justify-between">
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Submit
+        </button>
+      </div>
     </form>
   );
-};
+}
 
-export default ContactForm;
+export default ContactFrom;
