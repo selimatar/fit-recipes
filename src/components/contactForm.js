@@ -1,6 +1,54 @@
-const ContactFrom = () => {
+import axios from 'axios';
+
+async function createFormEntry(fields) {
+  try {
+    let apiUrl = `https://api.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master/entries`;
+
+    let headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.CONTENTFUL_MANAGAMENT_API_KEY}`,
+      'X-Contentful-Content-Type': "contact_form"
+    };
+
+    const data = {
+      fields: fields
+    };
+    await axios.post(apiUrl, data, { headers })
+  } catch (error) {
+    console.error('Error updating entry:', error);
+  }
+}
+
+export default async function ContactFrom () {
+
+  async function handleSubmit (formData) {
+    //send the data via api
+    'use server'
+    const fields = {
+      "first_name": {
+        "en-US": formData.get('first_name')
+      },
+      "last_name": {
+        "en-US": formData.get('last_name')
+      },
+      "email_adress": {
+        "en-US": formData.get('email')
+      },
+      "subject": {
+        "en-US": formData.get('subject')
+      },
+      "description": {
+        "en-US": formData.get('description')
+      }
+    }
+    
+    if(fields) {
+      await createFormEntry(fields)
+    }
+  }
+
   return (
-    <form className="max-w-md mx-auto my-8">
+    <form action={handleSubmit} className="max-w-md mx-auto my-8">
       <div className="mb-4">
         <label htmlFor="first_name" className="block text-gray-700 text-sm font-bold mb-2">
           First Name
@@ -8,7 +56,7 @@ const ContactFrom = () => {
         <input
           type="text"
           id="first_name"
-          name="irst_name"
+          name="first_name"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Enter your first name"
         />
@@ -59,8 +107,8 @@ const ContactFrom = () => {
         </label>
         <textarea
           type="text"
-          id="subject"
-          name="subject"
+          id="description"
+          name="description"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           placeholder="Enter the description"
         />
@@ -77,5 +125,3 @@ const ContactFrom = () => {
     </form>
   );
 }
-
-export default ContactFrom;
