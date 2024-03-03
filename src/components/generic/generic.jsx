@@ -1,8 +1,7 @@
-import React from "react"
-import ContactForm from "../contactForm"
+import ContactForm from "../form/contactForm"
 
 // This component will be used for generic pages such as Contact Page etc.
-const Generic = ({ data }) => {
+export default async function Generic({ data }) {
   if (data) {
     switch (data.fields.type) {
       case "Contact Form":
@@ -14,5 +13,3 @@ const Generic = ({ data }) => {
     return null
   }
 }
-
-export default Generic;

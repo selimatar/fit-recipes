@@ -1,54 +1,20 @@
-import axios from 'axios';
+'use client'
+import { useFormState } from 'react-dom'
+import { SubmitButton } from './submitButton'
+import { createFormEntry } from './actions'
 
-async function createFormEntry(fields) {
-  try {
-    let apiUrl = `https://api.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/master/entries`;
-
-    let headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.CONTENTFUL_MANAGAMENT_API_KEY}`,
-      'X-Contentful-Content-Type': "contact_form"
-    };
-
-    const data = {
-      fields: fields
-    };
-    await axios.post(apiUrl, data, { headers })
-  } catch (error) {
-    console.error('Error updating entry:', error);
-  }
+const initialState = {
+  message: '',
 }
 
 export default async function ContactFrom () {
-
-  async function handleSubmit (formData) {
-    //send the data via api
-    'use server'
-    const fields = {
-      "first_name": {
-        "en-US": formData.get('first_name')
-      },
-      "last_name": {
-        "en-US": formData.get('last_name')
-      },
-      "email_adress": {
-        "en-US": formData.get('email')
-      },
-      "subject": {
-        "en-US": formData.get('subject')
-      },
-      "description": {
-        "en-US": formData.get('description')
-      }
-    }
-    
-    if(fields) {
-      await createFormEntry(fields)
-    }
-  }
+  const [state, formAction] = useFormState(createFormEntry, initialState);
 
   return (
-    <form action={handleSubmit} className="max-w-md mx-auto my-8">
+    <form action={formAction} className="max-w-md mx-auto my-8">
+      <p aria-live="polite" className="sr-only">
+        {state?.message}
+      </p>
       <div className="mb-4">
         <label htmlFor="first_name" className="block text-gray-700 text-sm font-bold mb-2">
           First Name
@@ -115,12 +81,7 @@ export default async function ContactFrom () {
       </div>
 
       <div className="flex items-center justify-between">
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Submit
-        </button>
+        <SubmitButton />
       </div>
     </form>
   );

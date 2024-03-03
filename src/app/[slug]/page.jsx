@@ -1,6 +1,6 @@
 import client from "../contentfulClient";
 import Banner from "../../components/banner"
-import { renderComponents } from "../../helpers/componentRenderer";
+import { renderComponents } from '../../helpers/componentRenderer'
 
 async function getPageBySlug(slug) {
   try {
